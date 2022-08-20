@@ -24,8 +24,9 @@ function showError(err) {
     let errorMessage = document.createElement("p");
     errorMessage.appendChild(strong);
 
+    let errstring = "status: " + err.status + "\n" + err.responseText;
     // Break error message around \n and appends break element at the corresponding index
-    let arr = err.responseText.split("\n");
+    let arr = errstring.split("\n");
     for (let i = 0; i < arr.length; i++) {
         let br = document.createElement("br");
 

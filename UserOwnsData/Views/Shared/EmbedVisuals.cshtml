@@ -1,0 +1,52 @@
+﻿@* Copyright (c) Microsoft Corporation.
+    Licensed under the MIT license. *@
+
+@model UserOwnsData.Models.AuthDetails
+
+@{
+    ViewBag.Title = "EmbedVisuals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="outer-div">
+    <header class="row">
+        <div class="heading col-lg-6 col-md-6">Power BI Embedded Sample</div>
+        <div class="user-info col-lg-6 col-md-6">
+            Welcome <strong><u>@Model.UserName!</u></strong>
+        </div>
+    </header>
+
+    <!-- Show errors to the user -->
+    <div id="error-container">
+    </div>
+
+    <div class="grid-container" id="visualsContainer">
+        <div class="grid-item" id="Visual1"
+             data-workspaceId="4824796f-d801-44b9-b761-9572a2a83232"
+             data-reportId="79986161-b099-49eb-917d-ce5fee053bf8"
+             data-pageName="ReportSectiondecccb8482fa6cf4f797"
+             data-visualName="5717ed329716f2e5cd0a">1</div>
+        <div class="grid-item" id="Visual2"
+             data-workspaceId="4824796f-d801-44b9-b761-9572a2a83232"
+             data-reportId="79986161-b099-49eb-917d-ce5fee053bf8"
+             data-pageName="ReportSectiondecccb8482fa6cf4f797"
+             data-visualName="9cfd69ebc292026de70f">2</div>
+        <div class="grid-item" id="Visual3"
+             data-workspaceId="bf695c3f-4374-4308-9a33-aaaa5b2a27ff"
+             data-reportId="450f8d4f-c36c-4a92-b1fa-b071e8cffe2d"
+             data-pageName="ReportSection"
+             data-visualName="99efdd0a9b0cb5c3a54c">2</div>
+    </div>
+
+    <script src="~/Scripts/embedVisuals.js"></script>
+    <script>
+    loggedInUser.accessToken = "@Model.AccessToken";
+
+    // Retrieve Power BI hostname from Web.config file
+    globals.powerBiHostname = '@System.Configuration.ConfigurationManager.AppSettings["powerBiHostname"]';
+
+    // Cache base endpoint for Power BI REST API
+    globals.powerBiApi = '@System.Configuration.ConfigurationManager.AppSettings["powerBiApiUrl"]' + '/v1.0/myorg';
+
+
+    </script>

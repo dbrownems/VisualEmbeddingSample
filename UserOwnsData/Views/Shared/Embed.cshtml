@@ -111,12 +111,12 @@
         <div class="tile-display-text col-lg-12 col-md-12">Select workspace, dashboard and tile</div>
     </div>
 
-    <div id="logdiv" style="outline: 5px dotted red; height: 100px" >
+    <div id="logdiv" style="outline: 5px dotted red; height: 100px">
         <pre id="log" class="pre-scrollable">
         </pre>
     </div>
 </div>
-
+<script src="~/Scripts/index.js"></script>
 <script>
     loggedInUser.accessToken = "@Model.AccessToken";
 
@@ -126,7 +126,7 @@
     // Cache base endpoint for Power BI REST API
     globals.powerBiApi = '@System.Configuration.ConfigurationManager.AppSettings["powerBiApiUrl"]' + '/v1.0/myorg';
 
-    
+
     globals.writeWindowLog = function (txt) {
         //alert(txt)
        // $("#log").text($("#log").text() + "\n"+  txt);

@@ -178,6 +178,7 @@
     <Content Include="Content\lib\bootstrap\dist\js\bootstrap.min.js.map" />
     <Content Include="Scripts\data.js" />
     <Content Include="Scripts\embed.js" />
+    <Content Include="Scripts\embedVisuals.js" />
     <Content Include="Scripts\error.js" />
     <Content Include="Scripts\events.js" />
     <Content Include="Scripts\globals.js" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EmbedVisualsController.cs" />
     <Compile Include="Controllers\EmbedInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\AuthDetails.cs" />
@@ -207,6 +209,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\Embed.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Views\Shared\EmbedVisuals.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

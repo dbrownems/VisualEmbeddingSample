@@ -119,6 +119,9 @@ globals.getEmbedUrl = async function (embedParam, embedType) {
         case "report":
             componentDetailsEndpoint = `${globals.powerBiApi}/groups/${embedParam.workspaceId}/reports/${embedParam.reportId}`;
             break;
+        case "visual":
+            componentDetailsEndpoint = `${globals.powerBiApi}/groups/${embedParam.workspaceId}/reports/${embedParam.reportId}`;
+            break;
         case "dashboard":
             componentDetailsEndpoint = `${globals.powerBiApi}/groups/${embedParam.workspaceId}/dashboards/${embedParam.dashboardId}`;
             break;

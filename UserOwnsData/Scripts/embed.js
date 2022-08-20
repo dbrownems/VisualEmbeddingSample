@@ -31,6 +31,104 @@ async function dumpVisuals(report)
         console.log(errors);
     }
 }
+// Embed Power BI visual
+async function embedVisual(embedParam,target) {
+
+    // For setting type of token in embed config
+    let models = window["powerbi-client"].models;
+    let embedType = "visual";
+
+    let embedUrl;
+
+    try {
+        // Retrieves embed url for Power BI report
+        globals.embedParam = embedParam;
+        embedUrl = await globals.getEmbedUrl(embedParam, embedType);
+
+    } catch (error) {
+        showError(error);
+    }
+
+    let reportConfig = {
+        type: embedType,
+        tokenType: models.TokenType.Aad,
+        accessToken: loggedInUser.accessToken,
+        embedUrl: embedUrl,
+        id: embedParam.reportId,
+        pageName: embedParam.pageName,
+        visualName: embedParam.visualName,
+
+        settings: {
+            extensions: {
+                commands: [{
+                    name: "dumpVisual",
+                    title: "Display Visual Data",
+                    //icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEU...AAABJRU5ErkJggg==",
+                    extend: {
+                        visualContextMenu: {
+                            title: "Display Visual Data",
+                        },
+                        visualOptionsMenu: {
+                            title: "Display Visual Data",
+                        }
+                    }
+                }]
+            }
+        }
+        // Enable this setting to remove gray shoulders from embedded report
+        // settings: {
+        //	 background: models.BackgroundType.Transparent
+        // }
+    };
+
+
+    // Embed Power BI report
+    let report = powerbi.embed(target, reportConfig);
+    // Clear any other loaded handler events
+    //report.off("loaded");
+
+    //// Triggers when a report schema is successfully loaded
+    //report.on("loaded", function () {
+    //    console.log("Report loaded");
+    //    $(".report-wrapper").addClass("transparent-bg");
+    //    showEmbedContainer(globals.reportSpinner, globals.reportContainer);
+    //});
+
+    // Clear any other rendered handler events
+    target.off("rendered");
+
+    // Triggers when a report is successfully embedded in UI
+    target.on("rendered", async function () {
+        console.log("Report render successful");
+    });
+
+    //report.off("dataSelected");
+
+    //report.on("dataSelected", function (event) {
+    //    globals.writeWindowLog("dataSelected on visual: " + JSON.stringify(event.detail.visual));
+
+    //});
+
+    //report.off("commandTriggered");
+    //report.on("commandTriggered", function (command) {
+
+    //    globals.writeWindowLog("commandTriggered on visual: " + JSON.stringify(command.detail.visual) + " " + JSON.stringify(globals.embedParam));
+
+    //});
+    // Clear any other error handler event
+    report.off("error");
+
+    // Below patch of code is for handling errors that occur during embedding
+    report.on("error", function (event) {
+        let errorMsg = event.detail;
+
+        // Use errorMsg variable to log error in any destination of choice
+        console.error(errorMsg);
+        return;
+    });
+}
+
+
 // Embed Power BI report
 async function embedReport(embedParam) {
 
@@ -42,7 +140,9 @@ async function embedReport(embedParam) {
 
     try {
         // Retrieves embed url for Power BI report
+        globals.embedParam = embedParam;
         embedUrl = await globals.getEmbedUrl(embedParam, embedType);
+        
     } catch (error) {
         showError(error);
     }
@@ -126,7 +226,10 @@ async function embedReport(embedParam) {
     report.off("commandTriggered");
     report.on("commandTriggered", function (command) {
 
-        globals.writeWindowLog("commandTriggered on visual: " + JSON.stringify(command.detail.visual));
+        globals.writeWindowLog("commandTriggered on visual: " +
+            JSON.stringify(command.detail.visual) +
+            " on page " + command.detail.page.name +
+            " of " + JSON.stringify(globals.embedParam));
         
     });
     // Clear any other error handler event

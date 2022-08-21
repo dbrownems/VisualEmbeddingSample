@@ -25,12 +25,8 @@
     },
     {
       "provider": "jsdelivr",
-      "library": "powerbi-client@2.16.5",
-      "destination": "Content/lib/powerbi-client/",
-      "files": [
-        "LICENSE.txt",
-        "dist/powerbi.min.js"
-      ]
+      "library": "powerbi-client@2.21.1",
+      "destination": "Content/lib/powerbi-client/"
     }
   ]
 }

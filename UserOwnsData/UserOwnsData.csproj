@@ -169,13 +169,11 @@
     <Content Include="Content\lib\bootstrap\dist\js\bootstrap.min.js" />
     <Content Include="Content\lib\jquery\dist\jquery.min.js" />
     <Content Include="Content\lib\jquery\LICENSE.txt" />
+    <Content Include="Content\lib\powerbi-client\dist\powerbi.js" />
     <Content Include="Content\lib\powerbi-client\dist\powerbi.min.js" />
     <Content Include="Content\lib\powerbi-client\LICENSE.txt" />
     <Content Include="Content\style\style.css" />
     <Content Include="libman.json" />
-    <Content Include="Content\lib\bootstrap\LICENSE" />
-    <Content Include="Content\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <Content Include="Content\lib\bootstrap\dist\js\bootstrap.min.js.map" />
     <Content Include="Scripts\data.js" />
     <Content Include="Scripts\embed.js" />
     <Content Include="Scripts\embedVisuals.js" />
@@ -183,6 +181,8 @@
     <Content Include="Scripts\events.js" />
     <Content Include="Scripts\globals.js" />
     <Content Include="Scripts\index.js" />
+    <Content Include="Scripts\powerbi.js" />
+    <Content Include="Scripts\powerbi.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +208,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\Embed.cshtml" />
+    <Content Include="Content\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Include="Content\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Include="Content\lib\bootstrap\LICENSE" />
+    <Content Include="Content\lib\powerbi-client\dist\powerbi.js.map" />
+    <Content Include="Content\lib\powerbi-client\package.json" />
+    <Content Include="Content\lib\powerbi-client\README.md" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\EmbedVisuals.cshtml" />
     <None Include="Web.Debug.config">
@@ -220,7 +226,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\lib\powerbi-client\dist\powerbi-client.d.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

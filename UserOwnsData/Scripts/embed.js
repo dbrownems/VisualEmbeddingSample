@@ -95,10 +95,10 @@ async function embedVisual(embedParam,target) {
     //});
 
     // Clear any other rendered handler events
-    target.off("rendered");
+    report.off("rendered");
 
     // Triggers when a report is successfully embedded in UI
-    target.on("rendered", async function () {
+    report.on("rendered", async function () {
         console.log("Report render successful");
     });
 
@@ -126,6 +126,8 @@ async function embedVisual(embedParam,target) {
         console.error(errorMsg);
         return;
     });
+
+    return report;
 }
 
 
@@ -226,10 +228,14 @@ async function embedReport(embedParam) {
     report.off("commandTriggered");
     report.on("commandTriggered", function (command) {
 
-        globals.writeWindowLog("commandTriggered on visual: " +
-            JSON.stringify(command.detail.visual) +
-            " on page " + command.detail.page.name +
-            " of " + JSON.stringify(globals.embedParam));
+
+        var embedConfig = {
+            workspaceId: globals.embedParam.workspaceId,
+            reportId: globals.embedParam.reportId,
+            pageName: command.detail.page.name,
+            visualName: command.detail.visual.name
+        }
+        globals.writeWindowLog("commandTriggered on visual: " + JSON.stringify(embedConfig));
         
     });
     // Clear any other error handler event

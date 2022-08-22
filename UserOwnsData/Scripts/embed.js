@@ -218,12 +218,12 @@ async function embedReport(embedParam) {
         console.log("Report render successful");
     });
 
-    report.off("dataSelected");
+    //report.off("dataSelected");
 
-    report.on("dataSelected", function (event) {
-        globals.writeWindowLog("dataSelected on visual: " + JSON.stringify(event.detail.visual));
+    //report.on("dataSelected", function (event) {
+    //    globals.writeWindowLog("dataSelected on visual: " + JSON.stringify(event.detail.visual));
 
-    });
+    //});
 
     report.off("commandTriggered");
     report.on("commandTriggered", function (command) {

@@ -15,9 +15,7 @@
       "tableName": "Region",
       "columnName": "Region"
     },
-    "acceptsFiltersOn": [],
-    "targetElement": null,
-    "visual": null
+    "acceptsFiltersOn": []
   },
   {
     "embedConfig": {
@@ -34,10 +32,18 @@
       {
         "tableName": "Region",
         "columnName": "Region"
+      },
+      {
+        "tableName": "DimDate",
+        "columnName": "FiscalYear",
+        "mapTo": {
+          "tableName": "Date",
+          "columnName": "Year",
+          "transform":  "'CY'+(value+8)"
+        }
+        
       }
-    ],
-    "targetElement": null,
-    "visual": null
+    ]
   },
   {
     "embedConfig": {
@@ -55,9 +61,25 @@
         "tableName": "Region",
         "columnName": "Region"
       }
+    ]
+  },
+  {
+    "embedConfig": {
+      "workspaceId": "4824796f-d801-44b9-b761-9572a2a83232",
+      "reportId": "79986161-b099-49eb-917d-ce5fee053bf8",
+      "pageName": "ReportSectiondecccb8482fa6cf4f797",
+      "visualName": "5717ed329716f2e5cd0a"
+    },
+    "cssClass": [
+      "grid-item",
+      "span1x1"
     ],
-    "targetElement": null,
-    "visual": null
+    "acceptsFiltersOn": [
+      {
+        "tableName": "Region",
+        "columnName": "Region"
+      }
+    ]
   },
   {
     "embedConfig": {
@@ -68,16 +90,14 @@
     },
     "cssClass": [
       "grid-item",
-      "span4x2"
+      "span2x2"
     ],
     "acceptsFiltersOn": [
       {
         "tableName": "DimDate",
         "columnName": "FiscalYear"
       }
-    ],
-    "targetElement": null,
-    "visual": null
+    ]
   },
   {
     "embedConfig": {
@@ -88,16 +108,14 @@
     },
     "cssClass": [
       "grid-item",
-      "span4x2"
+      "span2x2"
     ],
     "acceptsFiltersOn": [
       {
         "tableName": "DimDate",
         "columnName": "FiscalYear"
       }
-    ],
-    "targetElement": null,
-    "visual": null
+    ]
   },
   {
     "embedConfig": {
@@ -114,8 +132,6 @@
     "producesFiltersOn": {
       "tableName": "DimDate",
       "columnName": "FiscalYear"
-    },
-    "targetElement": null,
-    "visual": null
+    }
   }
 ]

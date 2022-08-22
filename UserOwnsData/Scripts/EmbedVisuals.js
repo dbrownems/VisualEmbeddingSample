@@ -19,7 +19,6 @@ $(async function () {
         for (let c of v.cssClass) {
             div.classList.add(c);
         }
-
         visualsContainer.appendChild(div);
 
         powerbi.bootstrap(div, { type: "visual", hostname: globals.powerBiHostname });
@@ -39,6 +38,7 @@ $(async function () {
             visualsToEmbed[i].visual = visual;
         }
     }
+
     
     //wire up cross-filtering
     for (let thisVisual of visualsToEmbed) {
@@ -75,34 +75,57 @@ $(async function () {
                     if (af.tableName == thisVisual.producesFiltersOn.tableName
                         && af.columnName == thisVisual.producesFiltersOn.columnName) {
 
-                        filterTargetVisuals.push(otherVisual);
+                        filterTargetVisuals.push({ targetVisual:otherVisual,acceptsFilterOn:af });
                     }
                 }
             }
             if (filterTargetVisuals.length == 0) {
                 return;
             }
-            for (let otherVisual of filterTargetVisuals) {
+            for (let filterTargetVisual of filterTargetVisuals) {
+
+                let otherVisual = filterTargetVisual.targetVisual;
+                let af = filterTargetVisual.acceptsFilterOn;
+
+                let tableName = af.tableName;
+                let columnName = af.columnName;
+                if (af.mapTo != null) {
+                    tableName = af.mapTo.tableName;
+                    columnName = af.mapTo.columnName;
+                }
+
                 let newFilters = [];
                 let filters = await otherVisual.visual.getFilters(2);//Visual=2
                 for (let f of filters) {
+
+                    //skip the advanced "filters" that recite the mapped fields
+                    if (f.filterType == 0 && f.conditions.length == 0) {
+                        continue;
+                    }
                     //preserve any filters on other columns or any non-basic filters
-                    if (f.filterType != 1 || f.target.table != thisVisual.producesFiltersOn.tableName || f.target.column != thisVisual.producesFiltersOn.columnName) {
+                    if (f.filterType != 1 || f.target.table != tableName || f.target.column != columnName) {
                         newFilters.push(f);
                     }
                 }
 
+
+
                 if (event.detail.dataPoints.length > 0) {
                     let values = [];
                     for (let dataPoint of event.detail.dataPoints) {
-                        values.push(dataPoint.identity[0].equals);
+                        let value = dataPoint.identity[0].equals;
+                        if (af.mapTo != null && af.mapTo.transform != null)
+                        {
+                            value = eval(af.mapTo.transform);
+                        }
+                        values.push(value);
                     }
 
                     let newFilter = {
                         $schema: "http://powerbi.com/product/schema#basic",
                         target: {
-                            table: thisVisual.producesFiltersOn.tableName,
-                            column: thisVisual.producesFiltersOn.columnName
+                            table: tableName,
+                            column: columnName
                         },
                         operator: "In",
                         values: values,

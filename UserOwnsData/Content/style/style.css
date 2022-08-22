@@ -253,6 +253,20 @@ iframe {
     text-align: center;
 }
 
+
+.span1x1 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.span1x2 {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+.span2x1 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
 .span2x2 {
     grid-column: span 2;
     grid-row: span 2;

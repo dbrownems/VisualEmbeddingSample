@@ -14,6 +14,9 @@
         <div class="user-info col-lg-6 col-md-6">
             Welcome <strong><u>@Model.UserName!</u></strong>
         </div>
+        <div id="logdiv" style="outline: 5px dotted red; height: 100px">
+            <pre id="log" class="pre-scrollable"></pre>
+        </div>
     </header>
     <div class="row config-container">
         <div id="text-container" class="row col-lg-11 col-md-12">
@@ -111,11 +114,11 @@
         <div class="tile-display-text col-lg-12 col-md-12">Select workspace, dashboard and tile</div>
     </div>
 
-    <div id="logdiv" style="outline: 5px dotted red; height: 100px">
-        <pre id="log" class="pre-scrollable">
-        </pre>
-    </div>
+
 </div>
+
+
+
 <script src="~/Scripts/index.js"></script>
 <script>
     loggedInUser.accessToken = "@Model.AccessToken";

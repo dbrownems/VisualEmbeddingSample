@@ -24,51 +24,74 @@ $(async function () {
         visualsContainer.appendChild(div);
     }
 
-  
-    for (var i = 0; i < visualsToEmbed.length; i++) {
-        var v = visualsToEmbed[i].targetElement;
+    //kick off all the embeddings
+    {
+        let promises = [visualsToEmbed.length];
+        for (var i = 0; i < visualsToEmbed.length; i++) {
+            var v = visualsToEmbed[i].targetElement;
 
-        var config = visualsToEmbed[i].embedConfig;
-        var visual = await embedVisual(config, v);
-        visualsToEmbed[i].visual = visual;
+            var config = visualsToEmbed[i].embedConfig;
+            promises[i] = embedVisual(config, v);
+        }
+        for (var i = 0; i < visualsToEmbed.length; i++) {
+            var visual = await promises[i];
+            visualsToEmbed[i].visual = visual;
+        }
     }
-
+    
+    //wire up cross-filtering
     for (var i = 0; i < visualsToEmbed.length; i++) {
         var thisVisual = visualsToEmbed[i];
         if (thisVisual.producesFiltersOn == null) {
             continue;
         }
 
-        var filterTargetVisuals = [];
-        for (var j = 0; j < visualsToEmbed.length; j++) {
-            if (j == i) {
-                continue;
-            }
-            var otherVisual = visualsToEmbed[j];
-            
-            for (var k = 0; k < otherVisual.acceptsFiltersOn.length; k++) {
-                var af = otherVisual.acceptsFiltersOn[k];
-                if (af.tableName == thisVisual.producesFiltersOn.tableName && af.columnName == thisVisual.producesFiltersOn.columnName) {
-                    filterTargetVisuals.push(otherVisual);
-                }
-            }
-        }
-        if (filterTargetVisuals.length == 0) {
-            continue;
-        }
 
         console.log("Wiring up cross-filter");
                 //wire up events
         thisVisual.visual.on("dataSelected", async function (event) {
+            let filterTargetVisuals = [];
+
+            //hide the captured thisVisual and find the visual that triggered the event
+            var thisVisual;
+            for (var i = 0; i < visualsToEmbed.length; i++) {
+
+                if (visualsToEmbed[i].targetElement == event.srcElement) {
+                    thisVisual = visualsToEmbed[i];
+                    break;
+                }
+            }
+            if (thisVisual == null) {
+                throw new Error('Event target visual not found');
+            }
+
+            for (var j = 0; j < visualsToEmbed.length; j++) {
+
+                let otherVisual = visualsToEmbed[j];
+                if (otherVisual.targetElement == event.srcElement) {
+                    continue;
+                }
+
+                for (var k = 0; k < otherVisual.acceptsFiltersOn.length; k++) {
+                    let af = otherVisual.acceptsFiltersOn[k];
+                    if (af.tableName == thisVisual.producesFiltersOn.tableName && af.columnName == thisVisual.producesFiltersOn.columnName) {
+                        filterTargetVisuals.push(otherVisual);
+                    }
+                }
+            }
+            if (filterTargetVisuals.length == 0) {
+                return;
+            }
             for (var k = 0; k < filterTargetVisuals.length; k++) {
-                var otherVisual = filterTargetVisuals[k];
-                var newFilters = [];
-                var filters = await otherVisual.visual.getFilters(2);//Visual=2
+                let otherVisual = filterTargetVisuals[k];
+                //let af = otherVisual.acceptsFiltersOn[k];
+                let newFilters = [];
+                let filters = await otherVisual.visual.getFilters(2);//Visual=2
                 for (var i = 0; i < filters.length; i++) {
-                    var f = filters[i];
+                    let f = filters[i];
 
                     //preserve any filters on other columns or any non-basic filters
-                    if (f.filterType != 1 || f.target.table != af.tableName || f.target.column != af.columnName) {
+                    if (f.filterType != 1 || f.target.table != thisVisual.producesFiltersOn.tableName || f.target.column != thisVisual.producesFiltersOn.columnName) {
                         newFilters.push(f);
                     }
                 }
@@ -78,8 +101,8 @@ $(async function () {
                     var newFilter = {
                         $schema: "http://powerbi.com/product/schema#basic",
                         target: {
-                            table: af.tableName,
-                            column: af.columnName
+                            table: thisVisual.producesFiltersOn.tableName,
+                            column: thisVisual.producesFiltersOn.columnName
                         },
                         operator: "In",
                         values: [value],

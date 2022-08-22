@@ -1,4 +1,24 @@
 [
+
+  {
+    "embedConfig": {
+      "workspaceId": "4824796f-d801-44b9-b761-9572a2a83232",
+      "reportId": "79986161-b099-49eb-917d-ce5fee053bf8",
+      "pageName": "ReportSectiondecccb8482fa6cf4f797",
+      "visualName": "57681b16600b41bcccd9"
+    },
+    "cssClass": [
+      "grid-item",
+      "span1x1"
+    ],
+    "producesFiltersOn": {
+      "tableName": "Region",
+      "columnName": "Region"
+    },
+    "acceptsFiltersOn": [],
+    "targetElement": null,
+    "visual": null
+  },
   {
     "embedConfig": {
       "workspaceId": "4824796f-d801-44b9-b761-9572a2a83232",
@@ -10,7 +30,12 @@
       "grid-item",
       "span1x1"
     ],
-    "acceptsFiltersOn": [],
+    "acceptsFiltersOn": [
+      {
+        "tableName": "Region",
+        "columnName": "Region"
+      }
+    ],
     "targetElement": null,
     "visual": null
   },
@@ -25,7 +50,12 @@
       "grid-item",
       "span1x1"
     ],
-    "acceptsFiltersOn": [],
+    "acceptsFiltersOn": [
+      {
+        "tableName": "Region",
+        "columnName": "Region"
+      }
+    ],
     "targetElement": null,
     "visual": null
   },

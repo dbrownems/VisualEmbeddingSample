@@ -4,12 +4,13 @@ $(async function () {
 
     let response = await fetch("/visuals.json");
 
-    var visualsToEmbed = await response.json();
+    let visualsToEmbed = await response.json();
 
 
     //console.log(JSON.stringify(visualsToEmbed));
     var visualsContainer = document.getElementById('visualsContainer');
 
+    //create divs for the visuals and kick-off the bootstraping
     for (let v of visualsToEmbed) {
 
         let div = document.createElement('div');
@@ -27,14 +28,14 @@ $(async function () {
     //kick off all the embeddings then wait for them to complete
     {
         let promises = [visualsToEmbed.length];
-        for (var i = 0; i < visualsToEmbed.length; i++) {
-            var v = visualsToEmbed[i].targetElement;
+        for (let i = 0; i < visualsToEmbed.length; i++) {
+            let v = visualsToEmbed[i].targetElement;
 
-            var config = visualsToEmbed[i].embedConfig;
+            let config = visualsToEmbed[i].embedConfig;
             promises[i] = embedVisual(config, v);
         }
-        for (var i = 0; i < visualsToEmbed.length; i++) {
-            var visual = await promises[i];
+        for (let i = 0; i < visualsToEmbed.length; i++) {
+            let visual = await promises[i];
             visualsToEmbed[i].visual = visual;
         }
     }
@@ -52,7 +53,7 @@ $(async function () {
             let filterTargetVisuals = [];
 
             //hide the captured thisVisual and find the visual that triggered the event
-            var thisVisual;
+            let thisVisual;
             for (let v of visualsToEmbed) {
 
                 if (v.targetElement == event.srcElement) {
@@ -92,10 +93,12 @@ $(async function () {
                 }
 
                 if (event.detail.dataPoints.length > 0) {
-                    var values = [];
-                    event.detail.dataPoints.forEach(function (dataPoint) { values.push(dataPoint.identity[0].equals); } );
-                    //var value = event.detail.dataPoints[0].identity[0].equals;
-                    var newFilter = {
+                    let values = [];
+                    for (let dataPoint of event.detail.dataPoints) {
+                        values.push(dataPoint.identity[0].equals);
+                    }
+
+                    let newFilter = {
                         $schema: "http://powerbi.com/product/schema#basic",
                         target: {
                             table: thisVisual.producesFiltersOn.tableName,

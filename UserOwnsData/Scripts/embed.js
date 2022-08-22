@@ -235,7 +235,7 @@ async function embedReport(embedParam) {
             pageName: command.detail.page.name,
             visualName: command.detail.visual.name
         }
-        globals.writeWindowLog("commandTriggered on visual: " + JSON.stringify(embedConfig));
+        globals.writeWindowLog(JSON.stringify(embedConfig, null, 2));
         
     });
     // Clear any other error handler event

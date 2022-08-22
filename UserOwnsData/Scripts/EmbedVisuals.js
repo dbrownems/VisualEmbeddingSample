@@ -24,7 +24,7 @@ $(async function () {
         visualsContainer.appendChild(div);
     }
 
-    //kick off all the embeddings
+    //kick off all the embeddings then wait for them to complete
     {
         let promises = [visualsToEmbed.length];
         for (var i = 0; i < visualsToEmbed.length; i++) {
@@ -95,9 +95,11 @@ $(async function () {
                         newFilters.push(f);
                     }
                 }
-                if (event.detail.dataPoints.length > 0) {
 
-                    var value = event.detail.dataPoints[0].identity[0].equals;
+                if (event.detail.dataPoints.length > 0) {
+                    var values = [];
+                    event.detail.dataPoints.forEach(function (dataPoint) { values.push(dataPoint.identity[0].equals); } );
+                    //var value = event.detail.dataPoints[0].identity[0].equals;
                     var newFilter = {
                         $schema: "http://powerbi.com/product/schema#basic",
                         target: {
@@ -105,7 +107,7 @@ $(async function () {
                             column: thisVisual.producesFiltersOn.columnName
                         },
                         operator: "In",
-                        values: [value],
+                        values: values,
                         filterType: 1,
                         requireSingleSelection: true
                     };

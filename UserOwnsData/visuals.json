@@ -9,7 +9,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span1x1"
+      "span1x2"
     ],
     "producesFiltersOn": {
       "tableName": "Region",
@@ -26,7 +26,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span1x1"
+      "span1x2"
     ],
     "acceptsFiltersOn": [
       {
@@ -54,7 +54,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span1x1"
+      "span1x2"
     ],
     "acceptsFiltersOn": [
       {
@@ -72,7 +72,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span1x1"
+      "span1x2"
     ],
     "acceptsFiltersOn": [
       {
@@ -90,7 +90,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span2x2"
+      "span2x3"
     ],
     "acceptsFiltersOn": [
       {
@@ -108,7 +108,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span2x2"
+      "span2x3"
     ],
     "acceptsFiltersOn": [
       {
@@ -126,7 +126,7 @@
     },
     "cssClass": [
       "grid-item",
-      "span4x2"
+      "span4x4"
     ],
     "acceptsFiltersOn": [],
     "producesFiltersOn": {

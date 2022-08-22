@@ -1,0 +1,91 @@
+[
+  {
+    "embedConfig": {
+      "workspaceId": "4824796f-d801-44b9-b761-9572a2a83232",
+      "reportId": "79986161-b099-49eb-917d-ce5fee053bf8",
+      "pageName": "ReportSectiondecccb8482fa6cf4f797",
+      "visualName": "e16ff33d4f17123d49e6"
+    },
+    "cssClass": [
+      "grid-item",
+      "span1x1"
+    ],
+    "acceptsFiltersOn": [],
+    "targetElement": null,
+    "visual": null
+  },
+  {
+    "embedConfig": {
+      "workspaceId": "4824796f-d801-44b9-b761-9572a2a83232",
+      "reportId": "79986161-b099-49eb-917d-ce5fee053bf8",
+      "pageName": "ReportSectiondecccb8482fa6cf4f797",
+      "visualName": "b1e05f643b3140d6e9fa"
+    },
+    "cssClass": [
+      "grid-item",
+      "span1x1"
+    ],
+    "acceptsFiltersOn": [],
+    "targetElement": null,
+    "visual": null
+  },
+  {
+    "embedConfig": {
+      "workspaceId": "bf695c3f-4374-4308-9a33-aaaa5b2a27ff",
+      "reportId": "450f8d4f-c36c-4a92-b1fa-b071e8cffe2d",
+      "pageName": "ReportSection",
+      "visualName": "99efdd0a9b0cb5c3a54c"
+    },
+    "cssClass": [
+      "grid-item",
+      "span4x2"
+    ],
+    "acceptsFiltersOn": [
+      {
+        "tableName": "DimDate",
+        "columnName": "FiscalYear"
+      }
+    ],
+    "targetElement": null,
+    "visual": null
+  },
+  {
+    "embedConfig": {
+      "workspaceId": "bf695c3f-4374-4308-9a33-aaaa5b2a27ff",
+      "reportId": "450f8d4f-c36c-4a92-b1fa-b071e8cffe2d",
+      "pageName": "ReportSection",
+      "visualName": "99efdd0a9b0cb5c3a54c"
+    },
+    "cssClass": [
+      "grid-item",
+      "span4x2"
+    ],
+    "acceptsFiltersOn": [
+      {
+        "tableName": "DimDate",
+        "columnName": "FiscalYear"
+      }
+    ],
+    "targetElement": null,
+    "visual": null
+  },
+  {
+    "embedConfig": {
+      "workspaceId": "bf695c3f-4374-4308-9a33-aaaa5b2a27ff",
+      "reportId": "450f8d4f-c36c-4a92-b1fa-b071e8cffe2d",
+      "pageName": "ReportSection",
+      "visualName": "ae13b51fe02dcd05dc77"
+    },
+    "cssClass": [
+      "grid-item",
+      "span4x2"
+    ],
+    "acceptsFiltersOn": [],
+    "producesFiltersOn": {
+      "tableName": "DimDate",
+      "columnName": "FiscalYear"
+    },
+    "targetElement": null,
+    "visual": null
+  }
+]

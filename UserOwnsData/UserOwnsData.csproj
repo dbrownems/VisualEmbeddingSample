@@ -216,6 +216,7 @@
     <Content Include="Content\lib\powerbi-client\README.md" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\EmbedVisuals.cshtml" />
+    <Content Include="visuals.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

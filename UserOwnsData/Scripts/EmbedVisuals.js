@@ -7,21 +7,21 @@ $(async function () {
     var visualsToEmbed = await response.json();
 
 
-    console.log(JSON.stringify(visualsToEmbed));
+    //console.log(JSON.stringify(visualsToEmbed));
     var visualsContainer = document.getElementById('visualsContainer');
 
-    for (var i = 0; i < visualsToEmbed.length; i++) {
-        var v = visualsToEmbed[i];
-        let div = document.createElement('div');
+    for (let v of visualsToEmbed) {
 
-        for (var j = 0; j < v.cssClass.length; j++) {
-            div.classList.add(v.cssClass[j]);
-        }
-         
+        let div = document.createElement('div');
         v.targetElement = div;
 
-        powerbi.bootstrap(div, { type: "visual", hostname: globals.powerBiHostname });
+        for (let c of v.cssClass) {
+            div.classList.add(c);
+        }
+
         visualsContainer.appendChild(div);
+
+        powerbi.bootstrap(div, { type: "visual", hostname: globals.powerBiHostname });
     }
 
     //kick off all the embeddings then wait for them to complete
@@ -40,8 +40,7 @@ $(async function () {
     }
     
     //wire up cross-filtering
-    for (var i = 0; i < visualsToEmbed.length; i++) {
-        var thisVisual = visualsToEmbed[i];
+    for (let thisVisual of visualsToEmbed) {
         if (thisVisual.producesFiltersOn == null) {
             continue;
         }
@@ -54,10 +53,10 @@ $(async function () {
 
             //hide the captured thisVisual and find the visual that triggered the event
             var thisVisual;
-            for (var i = 0; i < visualsToEmbed.length; i++) {
+            for (let v of visualsToEmbed) {
 
-                if (visualsToEmbed[i].targetElement == event.srcElement) {
-                    thisVisual = visualsToEmbed[i];
+                if (v.targetElement == event.srcElement) {
+                    thisVisual = v;
                     break;
                 }
             }
@@ -65,16 +64,16 @@ $(async function () {
                 throw new Error('Event target visual not found');
             }
 
-            for (var j = 0; j < visualsToEmbed.length; j++) {
+            for (let otherVisual of visualsToEmbed) {
 
-                let otherVisual = visualsToEmbed[j];
                 if (otherVisual.targetElement == event.srcElement) {
                     continue;
                 }
 
-                for (var k = 0; k < otherVisual.acceptsFiltersOn.length; k++) {
-                    let af = otherVisual.acceptsFiltersOn[k];
-                    if (af.tableName == thisVisual.producesFiltersOn.tableName && af.columnName == thisVisual.producesFiltersOn.columnName) {
+                for (let af of otherVisual.acceptsFiltersOn) {
+                    if (af.tableName == thisVisual.producesFiltersOn.tableName
+                        && af.columnName == thisVisual.producesFiltersOn.columnName) {
+
                         filterTargetVisuals.push(otherVisual);
                     }
                 }
@@ -82,14 +81,10 @@ $(async function () {
             if (filterTargetVisuals.length == 0) {
                 return;
             }
-            for (var k = 0; k < filterTargetVisuals.length; k++) {
-                let otherVisual = filterTargetVisuals[k];
-                //let af = otherVisual.acceptsFiltersOn[k];
+            for (let otherVisual of filterTargetVisuals) {
                 let newFilters = [];
                 let filters = await otherVisual.visual.getFilters(2);//Visual=2
-                for (var i = 0; i < filters.length; i++) {
-                    let f = filters[i];
-
+                for (let f of filters) {
                     //preserve any filters on other columns or any non-basic filters
                     if (f.filterType != 1 || f.target.table != thisVisual.producesFiltersOn.tableName || f.target.column != thisVisual.producesFiltersOn.columnName) {
                         newFilters.push(f);

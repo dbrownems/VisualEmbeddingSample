@@ -254,7 +254,7 @@ iframe {
     padding: 5px;
     font-size: 30px;
     text-align: center;
-    align-content: stretch
+    align-content:baseline
 }
 
 

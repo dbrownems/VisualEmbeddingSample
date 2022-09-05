@@ -231,7 +231,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Content\lib\powerbi-client\dist\powerbi-client.d.ts" />
+    <None Include="Content\lib\powerbi-client\dist\powerbi-client.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
